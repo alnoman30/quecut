@@ -1,0 +1,1470 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@import "tailwindcss";
+
+
+@theme {
+    --color-yellow1: #D2F234;
+    --color-orange1: #FF6625;
+    --color-skyblue1: #44CFF5;
+    --color-purpel1: #CF33E6;
+    --color-yellow2: #ECD540;
+    --color-blue1: #0048FF;
+    --color-dark6: #BEC4BE;
+    --color-dark7: #DDE3DD;
+    --color-dark8: #EEF3EE;
+    --color-dark1: #0B0C0B;
+    --color-dark2: #151615;
+    --color-dark3: #232423;
+}
+
+.container {
+    max-width: 1535px;
+    width: 100%;
+    margin: auto;
+    padding-inline: 20px;
+}
+
+@media (max-width:640px) {
+    .container {
+    padding-inline: 16px;
+}
+}
+
+.font-fira{
+    font-family: "Fira Sans", sans-serif;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: #0B0C0B;
+}
+
+html {
+    scroll-behavior: smooth;
+   font-family: "Inter", sans-serif;
+}
+
+/* p{
+    font-weight: 300 !important;
+} */
+
+@layer base {
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.section-padding {
+    padding-block: 96px;
+}
+@media (max-width:1024px) {
+    .section-padding {
+    padding-block: 67px;
+}
+}
+@media (max-width:640px) {
+    .section-padding {
+    padding-block: 48px;
+}
+}
+
+.leading120{
+    line-height: 120%;
+}
+.leading150{
+    line-height: 150%;
+}
+
+
+
+/* ================= NAVBAR ================= */
+.navbar {
+    position: relative;
+    z-index: 999;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    background: var(--Dark-Colors-Dark-1, #0B0C0B);
+}
+
+.navbar .navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    /* padding-block: 20px; */
+}
+
+.navbar .navbar-logo img {
+    height: 32px;
+    width: auto;
+}
+
+/* ---------- DESKTOP MENU (applies to every ul/li/a, nested or not) ---------- */
+.navbar-menu {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.navbar-menu > ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu ul li {
+    position: relative;
+}
+
+.navbar-menu ul li a {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #B6B6B6;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: "Fira Sans", sans-serif;
+    /* padding-block: 24px; */
+    
+    transition: color 0.35s ease;
+}
+@media (min-width: 1600px) {
+    .navbar-menu ul li a {
+        padding:40px 62px;
+    }
+}
+@media (max-width: 1599px) {
+    .navbar-menu ul li a {
+        padding:32px 42px;
+    }
+}
+@media (max-width: 1360px) {
+    .navbar-menu ul li a {
+        padding:32px 22px;
+    }
+}
+@media (max-width: 1100px) {
+    .navbar-menu ul li a {
+        padding:28px 12px;
+    }
+}
+
+.navbar-menu ul li a .dropdown-arrow {
+    transition: transform 0.35s ease;
+}
+
+.navbar-menu ul li:hover > a,
+.navbar-menu ul li.current-menu-item > a {
+    color: #D2F234;
+}
+
+.navbar-menu ul li:hover > a .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* -------- HOVER "LIGHT ON" GLOW --------
+   No fixed px width anymore. Sized 100% of its own li (width/height),
+   so it can never spill over into neighbouring menu items on any screen size. */
+.navbar-menu ul li::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: radial-gradient(34.95% 34.95% at 50% 50%, var(--Main-Colors-Primary-Primary-Shade-2, #3D4A00) 0%, var(--Dark-Colors-Dark-1, #0B0C0B) 100%);
+    pointer-events: none;
+ 
+    opacity: 0;
+    transform: scale(0.35);
+    transform-origin: 50% 50%;
+    filter: blur(6px);
+ 
+    transition:
+        opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        filter 0.45s ease;
+}
+ 
+.navbar-menu ul li:hover::before {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+}
+ 
+
+/* ---------- DROPDOWN (desktop only, grid layout: menu left, image right) ---------- */
+.navbar-menu ul li:hover {
+    z-index: 5;
+}
+
+.navbar-menu ul li ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 612px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px;
+    padding-top: 28px;   /* invisible hover-bridge, closes the gap */
+    margin-top: -16px;
+
+    border-radius: 24px;
+    background: linear-gradient(180deg, #121211 0%, var(--Dark-Colors-Dark-3, #232423) 31.53%, var(--Dark-Colors-Dark-4, #696B69) 100%);
+    background-image: url("../images/dropdown-frame.svg");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: cover;
+    background-clip: padding-box;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 1000;
+}
+
+.navbar-menu ul li:hover > ul {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.navbar-menu ul li ul li {
+    width: 100%;
+}
+
+.navbar-menu ul li ul li::before {
+    display: none; /* no glow inside dropdown items */
+}
+
+.navbar-menu ul li ul li a {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #fff;
+    transition: background 0.3s ease, color 0.3s ease;
+    min-width: 256px;
+    font-family: "Fira Sans", sans-serif;
+}
+
+
+.navbar-menu ul li ul li a .dropdown-icon {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+
+
+.navbar-menu ul li ul li:hover > a {
+    background:  #0B0C0B;
+    color: #fff;
+}
+
+/* ---------- BUTTON ---------- */
+.navbar .navbar-btn .btn-getsample,
+.mobile-menu .btn-getsample {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    border-radius: 100px;
+    background: #fff;
+    color: #151615;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* navbar Get Free Sample: dark -> #759187 */
+.btn-text-wipe--navbar {
+    background-image: linear-gradient(to right, #759187 50%, #0B0C0B 50%);
+}
+
+.btn-getsample:hover .btn-text-wipe {
+    background-position: 0% 0;
+}
+
+/* ---------- HAMBURGER TOGGLE ---------- */
+.navbar .navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    /* width: 32px;
+    height: 32px; */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar .navbar-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+}
+
+/* ================= MOBILE OFF-CANVAS MENU ================= */
+.mobile-menu {
+    display: none; /* enabled only <=1024px */
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: var(--Dark-Colors-Dark-1, #0B0C0B);
+    overflow: hidden;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.45s ease, visibility 0.45s;
+}
+
+.mobile-menu.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.mobile-menu-track {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.4s ease;
+}
+
+.mobile-menu.show-services .mobile-menu-track {
+    transform: translateX(-50%);
+}
+
+.mobile-menu-panel {
+    width: 50%;
+    height: 100%;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
+}
+
+.mobile-menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.mobile-menu-heading {
+    display: block;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.mobile-services-heading {
+    margin-top: 0;
+}
+
+.mobile-menu-close {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #1a1b1a;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.mobile-menu-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+}
+
+.mobile-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-menu-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-list li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 18px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.mobile-menu-plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-btn {
+    margin-top: 28px;
+    align-self: flex-start;
+}
+
+.mobile-menu-deco {
+    margin-top: auto;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.mobile-services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.mobile-services-grid a {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 16px;
+    background: #17181a;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.mobile-services-grid img {
+    width: 26px;
+    height: 26px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1200px) {
+    .navbar-menu {
+        max-width: 100%;
+    }
+    .navbar-menu ul li ul {
+        width: 520px;
+    }
+}
+
+@media (max-width: 1024px) {
+    /* hide desktop nav links only — keep the "Get Free Sample" button visible on tablet + mobile */
+    .navbar-menu {
+        display: none;
+    }
+
+    .navbar .navbar-toggle {
+        display: flex;
+        order: 1;
+    }
+
+    .navbar .navbar-logo {
+        order: 2;
+    }
+
+    .navbar .navbar-btn {
+        display: block;
+        order: 3;
+    }
+
+    /* enable mobile off-canvas menu */
+    .mobile-menu {
+        display: block;
+    }
+}
+
+/* TABLET (641px–1024px): hamburger left, logo centered, button right —
+   navbar-inner already uses justify-content: space-between, so with only
+   3 visible items in this order it naturally reads as left / center / right */
+
+/* MOBILE (<=640px): hamburger + logo grouped together on the left,
+   button pinned to the far right */
+@media (max-width: 640px) {
+    .navbar .navbar-inner {
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .navbar .navbar-btn {
+        margin-left: auto;
+    }
+
+    /* slightly more compact pill so it doesn't crowd the hamburger + logo on small screens */
+    .navbar .navbar-btn .btn-getsample {
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar .navbar-inner {
+        padding-block: 20px;
+    }
+}
+@media (max-width: 640px) {
+    .navbar .navbar-inner {
+        padding-block:8px;
+    }
+    .navbar-toggle svg{
+        width: 29px;
+        height: 14px;
+    }
+    .navbar .navbar-logo img{
+        height: 20px;
+    }
+}
+
+
+/* navbar css end  */
+
+/* banner  */
+.banner-left{
+    background-image: url("../images/banner-left-shape.svg");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+
+@media (max-width:1400px) {
+    .banner-left{
+    background-size: 95%;
+}
+}
+@media (max-width:1026px) {
+    .banner-left{
+    background-image: none;
+}
+}
+/* banner css end  */
+
+
+/* industry css start  */
+@media (max-width:991px) {
+    .industry-card svg{
+        width: 6px;
+        height: 6px;
+}
+}
+
+/* industry css end  */
+
+
+
+/* ================= BANNER: ARROW REVEAL BUTTON ================= */
+.btn-reveal-icon-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.4s ease;
+}
+ 
+.btn-reveal-icon-layer-1 {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+ 
+.btn-reveal-icon-layer-2 {
+    transform: translate(-130%, 130%);
+    opacity: 0;
+}
+ 
+.btn-reveal-icon:hover .btn-reveal-icon-layer-1 {
+    transform: translate(130%, -130%);
+    opacity: 0;
+}
+ 
+.btn-reveal-icon:hover .btn-reveal-icon-layer-2 {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+
+
+
+
+
+/* ---- shared wipe mechanics (color values come from modifier classes below) ---- */
+.btn-text-wipe {
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background-position 0.6s ease;
+    font-family: "Fira Sans", sans-serif;
+    font-weight: 700;
+}
+
+/* Get Free Sample: dark -> white */
+.btn-cta .btn-text-wipe {
+    background-image: linear-gradient(to right, #73870E 50%, #000 50%);
+}
+
+/* See Pricing: yellow1 -> #9EA19E */
+.btn-text-wipe--outline {
+    background-image: linear-gradient(to right, #9EA19E 50%, #D2F234 50%);
+}
+
+/* ---- both animations trigger from the SAME outer anchor hover ---- */
+.btn-cta:hover .btn-reveal-icon-layer-1 {
+    transform: translate(130%, -130%);
+    opacity: 0;
+}
+
+.btn-cta:hover .btn-reveal-icon-layer-2 {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+.btn-cta:hover .btn-text-wipe,
+.banner-btn-outline:hover .btn-text-wipe {
+    background-position: 0% 0;
+}
+.banner-btn-outline:hover{
+    border-color: #9EA19E;
+}
+
+
+/* ================= BANNER: RIGHT SIDE SLIDERS ================= */
+.banner-slider {
+    background: #0B0C0B;
+}
+ 
+/* ---- Desktop: 3 vertical marquee columns ---- */
+.banner-slide-col {
+    height: 100%;
+    /* -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%); */
+}
+ 
+.banner-slide-col .splide__track,
+.banner-slide-col .splide__list {
+    height: 100%;
+}
+ 
+.banner-slide-col .splide__slide {
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+ 
+.banner-slide-col .splide__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+ 
+/* middle column offset so the 3 columns don't line up in a flat grid */
+/* .banner-slider-desktop > .banner-slide-col:nth-child(2) {
+    transform: translateY(60px);
+}
+  */
+/* ---- Mobile: 2 horizontal marquee rows ---- */
+.banner-slide-row {
+    flex: 1 1 0%;   /* each row shares the container height equally, no leftover empty space */
+    min-height: 0;  /* required for flex children to actually shrink/grow correctly */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+ 
+.banner-slide-row .splide__track {
+    overflow: visible;
+    height: 100%;
+}
+ 
+.banner-slide-row .splide__list {
+    display: flex;
+    height: 100%;
+}
+ 
+.banner-slide-row .splide__slide {
+    width: 220px;
+    height: 100%;   /* fills the row instead of a fixed 150px */
+    flex-shrink: 0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+ 
+.banner-slide-row .splide__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+ 
+/* while dragging, disable the fade mask so drag feels natural without visual popping */
+.splide.is-dragging {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+
+
+
+/* why-design-matters-section section  */
+.why-design-matters-section{
+    background-image: url(../images/why-matter.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.all-tools{
+     background-image: url(../images/all-tools-bg.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* .process-section{
+    background-image: url(../images/process-bg.png);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: contain;
+} */
+/* why-design-matters-section */
+
+
+/* how it works section  */
+
+.counter-bg-shape{
+    position: relative;
+
+    &:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        background-image: url("../images/counter-bg-shape.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 77px;
+        width: 100%;
+    }
+}
+ 
+.how-card {
+    background-size: 100% 135%;
+    background-position: 0% 0%;
+    transition: background-position 1.6s ease-in-out;
+}
+ 
+.how-card:hover {
+    background-position: 0% 100%;
+}
+ 
+.how-card--1 {
+    background-image: linear-gradient(180deg, #E9FF7C 0%, #BDDA2D 34.41%, #7A9300 100%);
+}
+ 
+.how-card--2 {
+    background-image: linear-gradient(180deg, #FFC398 0%, #FF6A00 35%, #843700 100%);
+}
+ 
+.how-card--3 {
+    background-image: linear-gradient(180deg, #E0F5FF 0%, #30BAFF 36.78%, #0078B4 100%);
+}
+ 
+
+
+/* why choose quecut  */
+
+.why-choose-us {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    perspective: 1200px; /* needed for the child's rotateX/rotateY to read as 3D */
+}
+ 
+.why-choose-bg {
+    position: absolute;
+    inset: -30px; /* small bleed so scale/tilt never reveals an edge */
+    z-index: -1;
+ 
+    background-image: url("../images/why-choose-main-background.webp");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+ 
+    transform-origin: center;
+    will-change: transform, opacity, filter;
+    animation: why-choose-bg-breathe 14s ease-in-out infinite;
+ 
+    /* initial "light off" state -- JS fades/brightens this in on scroll */
+    opacity: 0;
+    filter: brightness(0.15);
+}
+ 
+@keyframes why-choose-bg-breathe {
+    0%, 25% {
+        transform: scale(1) rotateX(0deg) rotateY(0deg);
+    }
+    60% {
+        transform: scale(1.12) rotateX(1.5deg) rotateY(-1.5deg);
+    }
+    100% {
+        transform: scale(1) rotateX(0deg) rotateY(0deg);
+    }
+}
+ 
+
+
+
+/* marquee css start  */
+/* ================= QUECUT TAPE MARQUEE ================= */
+.quecut-tape-marquee-section {
+    position: relative;
+    z-index: 2000;
+    margin-top: -130px; 
+    margin-inline: 50px; 
+}
+
+@media (max-width:640px) {
+    .quecut-tape-marquee-section {
+    margin-top: 0px; 
+}
+
+}
+ 
+
+.quecut-tape-marquee-rotate {
+    transform: rotate(3deg);
+    transform-origin: center;
+    margin-inline: -40px; 
+}
+ 
+.quecut-tape-marquee-stripe {
+    overflow: hidden;
+    border-radius: 100px;
+    padding-block: 24px; 
+ 
+background: linear-gradient(-176deg, var(--Main-Colors-Primary, rgba(210, 242, 52, 0.20)) 28.73%, rgba(102, 102, 102, 0.20) 35.98%), #404240;
+
+}
+ 
+.quecut-tape-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    width: max-content;
+    animation: quecut-tape-scroll 26s linear infinite;
+}
+ 
+.quecut-tape-marquee-section:hover .quecut-tape-marquee-track {
+    animation-play-state: paused;
+}
+ 
+@keyframes quecut-tape-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+ 
+.quecut-tape-marquee-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+ 
+.quecut-tape-marquee-item span {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 110%;
+    text-transform: uppercase;
+}
+ 
+@media (min-width: 768px) {
+    .quecut-tape-marquee-item span {
+        font-size: 28px;
+    }
+}
+ 
+@media (min-width: 1280px) {
+    .quecut-tape-marquee-item span {
+        font-size: 36px;
+    }
+}
+ 
+.quecut-tape-marquee-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+ 
+@media (min-width: 1280px) {
+    .quecut-tape-marquee-icon {
+        width: auto;
+        height: 62px;
+    }
+}
+
+
+
+
+
+/* service section design  */
+
+/* ================= DESIGN SERVICES: ANIMATED HOVER BORDER =================
+   Each card sets its own color via the --card-accent CSS variable directly
+   in HTML (Tailwind arbitrary property syntax), e.g. [--card-accent:#FF6A00].
+   This file only defines the reusable animation mechanism once. */
+
+@property --design-card-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.design-card {
+    isolation: isolate;
+}
+
+.design-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 2px;
+
+    background: conic-gradient(
+        from var(--design-card-angle),
+        transparent 0%,
+        var(--card-accent, #D2F234) 12%,
+        transparent 28%
+    );
+
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    animation: design-card-border-spin 3.5s linear infinite;
+    animation-play-state: paused;
+}
+
+.design-card:hover::before {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+/* the "popular" card (card 2) keeps its persistent solid border AND still
+   gets the animated glow layered on top when hovered */
+.design-card--popular::before {
+    padding: 3px; /* sits just outside the persistent 2px solid border */
+}
+
+@keyframes design-card-border-spin {
+    to {
+        --design-card-angle: 360deg;
+    }
+}
+
+
+
+
+
+@property --portfolio-card-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.portfolio-card {
+    isolation: isolate;
+}
+
+/* spinning gradient border — same language as .design-card, reused for consistency */
+.portfolio-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    padding: 2px;
+
+    background: conic-gradient(
+        from var(--portfolio-card-angle),
+        transparent 0%,
+        var(--card-accent, #D2F234) 12%,
+        transparent 28%
+    );
+
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    animation: portfolio-card-border-spin 3.5s linear infinite;
+    animation-play-state: paused;
+}
+
+.portfolio-card:hover::before {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+@keyframes portfolio-card-border-spin {
+    to {
+        --portfolio-card-angle: 360deg;
+    }
+}
+
+/* image zoom on hover */
+.portfolio-card img {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.portfolio-card:hover img {
+    transform: scale(1.08);
+    filter: brightness(0.65);
+}
+
+/* dark gradient overlay fades in so the label always stays readable + gives depth on hover */
+.portfolio-card-overlay {
+    background: linear-gradient(180deg, transparent 40%, rgba(11, 12, 11, 0.9) 100%);
+    opacity: 0.75;
+    transition: opacity 0.4s ease;
+}
+
+.portfolio-card:hover .portfolio-card-overlay {
+    opacity: 1;
+}
+
+/* label text: slides up slightly on hover */
+.portfolio-card-label span {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-card:hover .portfolio-card-label span {
+    transform: translateY(-4px);
+}
+
+
+
+/* ================= PORTFOLIO: TABS ================= */
+.portfolio-tab {
+    padding: 12px 12px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width:100%;
+    color:  #BEC4BE;
+    text-align: center;
+    font-family: "Fira Sans", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid transparent;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.portfolio-tab:last-child {
+    margin-right: 0;
+}
+
+.portfolio-tab:hover {
+    color: #fff;
+}
+
+.portfolio-tab.active {
+    color: var(--color-yellow1);
+    border-bottom-color: var(--color-yellow1);
+}
+
+@media (max-width: 640px) {
+    .portfolio-tab {
+        font-size: 14px;
+    }
+}
+
+/* hides the scrollbar for the drag-scrollable tab row while keeping it scrollable */
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar.is-dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+/* ================= PORTFOLIO: CARD LABEL (glassmorphism) ================= */
+.portfolio-card-label {
+    border-radius: 0 0 10.537px 10.537px;
+    background: linear-gradient(90deg, var(--Dark-Colors-Dark-1, rgba(11, 12, 11, 0.60)) 0%, rgba(125, 134, 80, 0.06) 100%);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+}
+
+/* filtered-out cards hide smoothly instead of jump-cutting */
+.portfolio-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.portfolio-card.is-hidden {
+    display: none;
+}
+
+
+
+/* testimonial section  */
+
+
+.testimonial-card-body::before {
+        content: "";
+    position: absolute;
+    inset: 0;
+    top: 74%;
+    left: -46%;
+    background-image: url(../images/testimonial-bg-shape.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    /* background-size: contain; */
+    z-index: 77;
+ 
+}
+ 
+@media (max-width: 640px) {
+    .testimonial-card-body::before {
+       background-size: 64%;
+top: 80%;
+    }
+}
+
+.testimonials-section{
+    position: relative;
+    z-index: 1;
+}
+
+
+
+
+
+
+
+/* blog read more button  */
+.blog-card .blog-read-more-btn{
+    transition: color 0.3s ease;
+
+}
+.blog-card .blog-read-more-btn:hover{
+    color:#52D6DA
+}
+
+.arrow-icon-right-read-more-icon{
+    transition: filter 0.3s ease;
+}
+
+.blog-card .blog-read-more-btn:hover .arrow-icon-right-read-more-icon{
+    filter: brightness(0) saturate(100%) invert(78%) sepia(35%) saturate(930%) hue-rotate(137deg) brightness(96%) contrast(93%);
+}
+
+
+
+
+/* ================= CTA SECTION ================= */
+.cta-section {
+    position: relative;
+    isolation: isolate;
+}
+
+/* both radial "lights" start invisible; GSAP fades them in on scroll */
+
+
+/* gray spotlight from below -- creates the soft top-lit vignette behind the mockup */
+@media (min-width: 1025px) {
+    .cta-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* both radial "lights" start invisible; GSAP fades them in on scroll */
+
+
+/* gray spotlight from below -- creates the soft top-lit vignette behind the mockup */
+.cta-radial-gray {
+    background: radial-gradient(
+        96.17% 158.78% at 50% 148.47%,
+        rgba(105, 107, 105, 0.00) 77.54%,
+        rgba(70, 71, 70, 0.65) 92.03%,
+        var(--color-dark3, #232423) 100%
+    );
+}
+
+
+
+
+/* faq section  */
+.faq-content {
+    overflow: hidden;
+    transition: max-height 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+
+/* blog section  */
+
+/* scoped to the blog card's cover image only — avatar image untouched */
+.blog-card-media {
+    position: relative;
+    overflow: hidden;
+}
+.blog-card-media img {
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+.blog-card:hover .blog-card-media img {
+    transform: scale(1.05);
+}
+/* subtle gradient fade instead of a harsh brightness darken — reads more premium */
+.blog-card-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11, 12, 11, 0) 55%, rgba(11, 12, 11, 0.35) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+.blog-card:hover .blog-card-media::after {
+    opacity: 1;
+}
+
+
+/* band book bg  */
+.brand-book-section .brand-book-inner{
+    background-image:url(../images/brand-book-bg.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+/* ================= FOOTER ================= */
+.footer-col-title {
+    color: var(--color-yellow1, #D2F234);
+    font-family: "Fira Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 120%;
+    margin-bottom: 20px;
+}
+
+.footer-col-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col-list li a {
+    color: #9EA19E;
+    font-family: "Fira Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+
+
+.footer-col-list li a:hover {
+    color: var(--color-yellow1, #D2F234);
+}
+
+.footer-social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #323432;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social-icon:hover {
+    background: #4C4C4C;
+    color: #0B0C0B;
+    transform: translateY(-2px);
+}
+
+.footer-copyright {
+    color: #fff;
+    font-family: "Fira Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0 0 48px 0;
+}
+
+.footer-divider {
+    border: none;
+    height: 1px;
+    background: #BEC4BE;
+    opacity: 0.2;
+    margin: 0 0 0px 0;
+}
+
+/* ---- BIG BOTTOM QUECUT LOGO with animated gradient wave ---- */
+.quecut-mega-logo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 405;
+    overflow: hidden;
+
+    /* SVG letter shape as CSS mask -- only letters visible, rest transparent */
+    -webkit-mask-image: url("../images/quecut-footer.svg");
+    mask-image: url("../images/quecut-footer.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-position: center;
+    mask-position: center;
+
+    /* dark base color -- visible through letters when no blob is overlapping */
+    background-color: #3E403E;
+}
+
+.quecut-blob {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-radius: 50%;
+    filter: blur(72px);
+    pointer-events: none;
+    will-change: transform;
+}
+
+.quecut-blob--yellow  { width: 564px; height: 564px; background: #D2F234; }
+.quecut-blob--orange  { width: 570px; height: 570px; background: #FF6A00; }
+.quecut-blob--blue    { width: 564px; height: 564px; background: #0AF;    }
+.quecut-blob--magenta { width: 564px; height: 564px; background: #F0D;    }
+
+/* mobile: scale blobs down so they fit the narrower shape properly */
+@media (max-width: 1024px) {
+    .quecut-blob {
+        width: 340px !important;
+        height: 340px !important;
+        filter: blur(48px);
+    }
+}
+
+@media (max-width: 640px) {
+    .quecut-blob {
+        width: 220px !important;
+        height: 220px !important;
+        filter: blur(32px);
+    }
+}
+
+
+.footer {
+background:  #0B0C0B;
+}
+
+
+
+@media (max-width:640px) {
+    .footer-col-list li a {
+        font-size: 14px;
+    }
+    .footer-col-list {
+    gap: 10px;
+}
+}
+
+
+@media(max-width:991px){
+    .identity-badge svg{
+        height: 20px;
+        width: 20px;
+    }
+}
+@media(max-width:640px){
+    .identity-badge svg{
+        height: 14px;
+        width: 14px;
+    }
+}
+
+
+
+/*  Noman css start here */
+.print-one-package-bg{
+    background-image: url(../images/print-one-package-bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
